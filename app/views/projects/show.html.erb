@@ -1,0 +1,59 @@
+<%= link_to 'Back', projects_path, class: 'btn btn-secondary mb-3' %>
+<div class="card">
+  <div class="card-body">
+    <h2 class='card-title d-flex justify-content-between mb-4'>
+      <span><%= @project.name %></span>
+      <div>
+        <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-light' %>
+        <%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark' %>
+      </div>
+    </h2>
+
+    <div class="mb-4">
+      <h6>Add task</h6>
+      <%= simple_form_for [@project, @task], html: { class: 'row' } do |f| %>
+        <% if @task.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+            <ul>
+            <% @task.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= f.hidden_field :status, value: 'Not Started'%>
+        <div class='col'><%= f.input :name, label: false, placeholder: 'Enter task name',input_html: { class:  'form-control' }  %></div>
+        <%= f.submit class: 'btn btn-primary col col-lg-2'%>
+      <% end %>
+    </div>
+
+    <h4>Tasks</h4>
+    <% @project.tasks.each do |task| %>
+      <% if task.persisted? %>
+        <div class="card mb-3 ">
+          <div class="card-body">
+            <div class='d-flex justify-content-between mb-2'>
+            <span class="badge bg-<%= task.badge_color %> mb-3"><%= task.status %></span>
+            <div>
+              <%= link_to 'Edit', edit_project_task_path(task.project, task), class: 'btn btn-light btn-sm' %>
+              <%= link_to 'Destroy', [task.project, task], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark btn-sm' %>
+              </div>
+            </div>
+
+            <h5 class='card-title'>
+             <%= task.name %>
+            </h5>
+            <p><%= task.description %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<%# <%= link_to 'Edit', edit_project_path(@project) %>
+<%# <%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' } %>
