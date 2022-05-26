@@ -24,7 +24,7 @@
           </div>
         <% end %>
         <%= f.hidden_field :status, value: 'Not Started'%>
-        <div class='col'><%= f.input :name, label: false, placeholder: 'Enter task name',input_html: { class:  'form-control' }  %></div>
+        <div class='col'><%= f.input :name, label: false, placeholder: 'Enter task name',input_html: { class:  'form-control d-inline' }  %></div>
         <%= f.submit class: 'btn btn-primary col col-lg-2'%>
       <% end %>
     </div>
