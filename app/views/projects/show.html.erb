@@ -30,26 +30,30 @@
     </div>
 
     <h4>Tasks</h4>
-    <% @project.tasks.each do |task| %>
-      <% if task.persisted? %>
-        <div class="card mb-3 ">
-          <div class="card-body">
-            <div class='d-flex justify-content-between mb-2'>
-            <span class="badge bg-<%= task.badge_color %> mb-3"><%= task.status %></span>
-            <div>
-              <%= link_to 'Edit', edit_project_task_path(task.project, task), class: 'btn btn-light btn-sm' %>
-              <%= link_to 'Destroy', [task.project, task], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark btn-sm' %>
+    <div id="tasks-list" class="row">
+      <% @project.tasks.each do |task| %>
+        <% if task.persisted? %>
+        <div class="col-4">
+        <div class="card mb-3 h-100">
+            <div class="card-body">
+              <div mb-4 box-shadow h-100v class='d-flex justify-content-between mb-2'>
+              <span class="badge bg-<%= task.badge_color %> mb-3"><%= task.status %></span>
+              <div>
+                <%= link_to 'Edit', edit_project_task_path(task.project, task), class: 'btn btn-light btn-sm' %>
+                <%= link_to 'Destroy', [task.project, task], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark btn-sm' %>
+                </div>
               </div>
+              <h5 class='card-title'>
+              <%= task.name %>
+              </h5>
+              <p><%= task.description %></p>
             </div>
-
-            <h5 class='card-title'>
-             <%= task.name %>
-            </h5>
-            <p><%= task.description %></p>
           </div>
         </div>
+
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
 
